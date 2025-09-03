@@ -9,12 +9,14 @@ This project includes automated FTP deployment via GitHub Actions. Every push to
 ### Setting up FTP Deployment
 
 1. **Configure Repository Secrets** in your GitHub repository settings:
-   - `FTP_USERNAME`: Your FTP username
-   - `FTP_PASSWORD`: Your FTP password
+   - `FTP_PASSWORD`: Your FTP password for fem@bestratedhospitals.org
 
-2. **Update FTP Settings** in `.github/workflows/deploy.yml`:
-   - Replace `ftp.yourdomain.com` with your FTP server
-   - Adjust `server-dir` to match your hosting directory (e.g., `/public_html/`)
+2. **FTP Configuration** (already configured in `.github/workflows/deploy.yml`):
+   - **Server**: ftp.bestratedhospitals.org
+   - **Username**: fem@bestratedhospitals.org
+   - **Port**: 21
+   - **Protocol**: FTP
+   - **Directory**: /public_html/
 
 3. **Push to Main Branch**: Deployment happens automatically on every push to `main`
 
