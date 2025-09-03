@@ -1,6 +1,22 @@
-# Best Rated Hospitals - HTML Version
+# Best Rated Hospitals - Healthcare Web Application
 
-This directory contains HTML and CSS versions of all the pages from the Vue.js Best Rated Hospitals application. These static pages provide a complete user interface that can be viewed in any web browser without requiring a backend server or build process.
+A modern, responsive healthcare web application for finding and rating hospitals. Features integrated branding with logo and background assets, mobile-optimized design, and automated deployment capabilities.
+
+## 🚀 Deployment
+
+This project includes automated FTP deployment via GitHub Actions. Every push to the `main` branch will automatically deploy to your FTP server.
+
+### Setting up FTP Deployment
+
+1. **Configure Repository Secrets** in your GitHub repository settings:
+   - `FTP_USERNAME`: Your FTP username
+   - `FTP_PASSWORD`: Your FTP password
+
+2. **Update FTP Settings** in `.github/workflows/deploy.yml`:
+   - Replace `ftp.yourdomain.com` with your FTP server
+   - Adjust `server-dir` to match your hosting directory (e.g., `/public_html/`)
+
+3. **Push to Main Branch**: Deployment happens automatically on every push to `main`
 
 ## 📁 File Structure
 
