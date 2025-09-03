@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Best Rated Hospitals</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav-brand">
+                <img src="assets/img/logo.png" alt="Best Rated Hospitals" class="nav-logo" style="height: 40px; margin-right: 12px; vertical-align: middle;">
+                <span>Best Rated Hospitals</span>
+            </div>
+            <button class="nav-toggle" onclick="toggleMobileNav()">
+                <span class="icon">menu</span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content" style="min-height: 100vh; display: flex; align-items: center; padding: 40px 0; background: linear-gradient(135deg, rgba(248, 250, 252, 0.95) 0%, rgba(241, 245, 249, 0.9) 100%), url('assets/img/bg.jpg'); background-size: cover; background-position: center; background-attachment: fixed;">
+        <div class="container">
+            <div class="layout" style="justify-content: center;">
+                <div class="flex sm4">
+                    <div class="card" style="box-shadow: 0 12px 40px rgba(0,0,0,0.1); border-radius: 20px; overflow: hidden; border: 1px solid var(--gray-200); background: var(--white);">
+                        <div class="card-header" style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); color: white; text-align: center; padding: 40px 32px;">
+                            <div class="logo-container" style="margin-bottom: 20px;">
+                                <div class="logo-circle" style="width: 100px; height: 100px; background: rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; backdrop-filter: blur(10px); padding: 20px; box-sizing: border-box;">
+                                    <img src="assets/img/logo.png" alt="Best Rated Hospitals" style="width: 60px; height: 60px; filter: brightness(0) invert(1);">
+                                </div>
+                            </div>
+                            <h2 style="margin-bottom: 8px; font-size: 1.75rem; font-weight: 600;">Welcome Back</h2>
+                            <p style="margin: 0; opacity: 0.9; font-size: 1rem;">Sign in to access your healthcare dashboard</p>
+                        </div>
+                        <div class="card-text" style="padding: 40px 32px;">
+                            <form id="loginForm">
+                                <div class="form-group" style="margin-bottom: 24px;">
+                                    <label class="form-label" for="username" style="color: var(--text-primary); font-weight: 600; margin-bottom: 8px; display: block; font-size: 0.95rem;">Email Address</label>
+                                    <div style="position: relative;">
+                                        <i class="material-icons" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--primary-color); font-size: 20px;">email</i>
+                                        <input type="email" id="username" name="username" class="form-control" required 
+                                               placeholder="Enter your email address"
+                                               style="padding: 16px 16px 16px 52px; border: 2px solid var(--gray-300); border-radius: 12px; font-size: 16px; transition: all 0.3s ease; background: var(--white); width: 100%; box-sizing: border-box;">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group" style="margin-bottom: 32px;">
+                                    <label class="form-label" for="password" style="color: var(--text-primary); font-weight: 600; margin-bottom: 8px; display: block; font-size: 0.95rem;">Password</label>
+                                    <div style="position: relative;">
+                                        <i class="material-icons" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--primary-color); font-size: 20px;">lock</i>
+                                        <input type="password" id="password" name="password" class="form-control" required 
+                                               placeholder="Enter your password"
+                                               style="padding: 16px 16px 16px 52px; border: 2px solid var(--gray-300); border-radius: 12px; font-size: 16px; transition: all 0.3s ease; background: var(--white); width: 100%; box-sizing: border-box;">
+                                    </div>
+                                </div>
+                                
+                                <div style="margin-bottom: 24px;">
+                                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 18px; border-radius: 12px; font-size: 16px; font-weight: 600; background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); border: none; box-shadow: 0 4px 20px rgba(67, 146, 241, 0.25); transition: all 0.3s ease; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                        <i class="material-icons" style="font-size: 20px;">login</i>
+                                        Sign In to Dashboard
+                                    </button>
+                                    
+                                    <div style="text-align: center; margin-bottom: 24px;">
+                                        <p style="color: var(--text-secondary); margin-bottom: 12px; font-size: 0.9rem;">New to our platform?</p>
+                                        <a href="register.html" style="color: var(--primary-color); text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; padding: 12px 16px; border-radius: 8px; transition: all 0.3s ease; border: 2px solid var(--primary-color); background: transparent;">
+                                            <i class="material-icons" style="font-size: 18px;">person_add</i>
+                                            Create Account
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <div style="text-align: center; padding-top: 24px; border-top: 1px solid var(--gray-200);">
+                                    <a href="reset-password.html" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 6px; transition: all 0.3s ease; padding: 8px 12px; border-radius: 6px;">
+                                        <i class="material-icons" style="font-size: 16px;">help_outline</i>
+                                        Forgot your password?
+                                    </a>
+                                </div>
+
+                            <!-- Success Message (hidden by default) -->
+                            <div id="successMessage" style="display: none; margin-top: 24px; padding: 20px; background: linear-gradient(135deg, #4caf50, #66bb6a); color: white; border-radius: 12px; text-align: center; box-shadow: 0 4px 16px rgba(76, 175, 80, 0.3);">
+                                <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 8px;">
+                                    <span class="icon" style="font-size: 28px;">check_circle</span>
+                                    <strong style="font-size: 18px;">Welcome!</strong>
+                                </div>
+                                <p style="margin: 0; font-size: 15px; opacity: 0.95;">Login successful. Redirecting...</p>
+                            </div>
+
+                            <!-- Error Message (hidden by default) -->
+                            <div id="errorMessage" style="display: none; margin-top: 24px; padding: 20px; background: linear-gradient(135deg, #f44336, #ef5350); color: white; border-radius: 12px; text-align: center; box-shadow: 0 4px 16px rgba(244, 67, 54, 0.3);">
+                                <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 8px;">
+                                    <span class="icon" style="font-size: 28px;">error</span>
+                                    <strong style="font-size: 18px;">Login Failed</strong>
+                                </div>
+                                <p id="errorText" style="margin: 0; font-size: 15px; opacity: 0.95;">Invalid email or password.</p>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const API_BASE_URL = 'https://healthier-a4a89cbfae6a.herokuapp.com/api';
+        
+        // Enhanced form interactions
+        const emailInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const submitButton = document.querySelector('button[type="submit"]');
+        const registerLink = document.querySelector('a[href="register.html"]');
+        const forgotLink = document.querySelector('a[href="reset-password.html"]');
+        
+        // Input focus effects
+        [emailInput, passwordInput].forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.borderColor = '#4392f1';
+                this.style.boxShadow = '0 0 0 3px rgba(67, 146, 241, 0.1)';
+                this.style.background = '#ffffff';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.style.borderColor = '#e1e5e9';
+                this.style.boxShadow = 'none';
+                this.style.background = '#fafbfc';
+            });
+        });
+        
+        // Button hover effects
+        submitButton.addEventListener('mouseenter', function() {
+            if (!this.disabled) {
+                this.style.transform = 'translateY(-2px)';
+                this.style.boxShadow = '0 8px 24px rgba(67, 146, 241, 0.4)';
+            }
+        });
+        
+        submitButton.addEventListener('mouseleave', function() {
+            if (!this.disabled) {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '0 4px 16px rgba(67, 146, 241, 0.3)';
+            }
+        });
+        
+        // Link hover effects
+        [registerLink, forgotLink].forEach(link => {
+            link.addEventListener('mouseenter', function() {
+                this.style.background = 'rgba(67, 146, 241, 0.1)';
+                this.style.transform = 'translateX(-2px)';
+            });
+            
+            link.addEventListener('mouseleave', function() {
+                this.style.background = 'transparent';
+                this.style.transform = 'translateX(0)';
+            });
+        });
+        
+        // Form submission with API integration
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Hide previous messages
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            
+            if (!email || !password) {
+                document.getElementById('errorText').textContent = 'Please fill in all fields.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+            
+            // Show loading state
+            const originalText = submitButton.innerHTML;
+            submitButton.innerHTML = '<span class="icon" style="margin-right: 8px;">hourglass_empty</span> Signing In...';
+            submitButton.disabled = true;
+            submitButton.style.background = 'linear-gradient(135deg, #90a4ae, #b0bec5)';
+            submitButton.style.transform = 'scale(0.98)';
+            submitButton.style.boxShadow = '0 2px 8px rgba(144, 164, 174, 0.3)';
+            
+            try {
+                // API call for login
+                const response = await fetch(`${API_BASE_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.status === 'success') {
+                    // Success animation
+                    successMessage.style.display = 'block';
+                    successMessage.style.opacity = '0';
+                    successMessage.style.transform = 'translateY(10px)';
+                    setTimeout(() => {
+                        successMessage.style.transition = 'all 0.3s ease';
+                        successMessage.style.opacity = '1';
+                        successMessage.style.transform = 'translateY(0)';
+                    }, 10);
+                    
+                    // Store auth token if provided
+                    if (data.token) {
+                        localStorage.setItem('authToken', data.token);
+                        localStorage.setItem('userInfo', JSON.stringify(data.user));
+                    }
+                    
+                    // Redirect after success
+                    setTimeout(() => {
+                        window.location.href = 'search.html';
+                    }, 1500);
+                } else {
+                    // Error handling
+                    const errorMsg = data.message || 'Invalid email or password.';
+                    document.getElementById('errorText').textContent = errorMsg;
+                    errorMessage.style.display = 'block';
+                    errorMessage.style.opacity = '0';
+                    errorMessage.style.transform = 'translateY(10px)';
+                    setTimeout(() => {
+                        errorMessage.style.transition = 'all 0.3s ease';
+                        errorMessage.style.opacity = '1';
+                        errorMessage.style.transform = 'translateY(0)';
+                    }, 10);
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                document.getElementById('errorText').textContent = 'Network error. Please try again.';
+                errorMessage.style.display = 'block';
+                errorMessage.style.opacity = '0';
+                errorMessage.style.transform = 'translateY(10px)';
+                setTimeout(() => {
+                    errorMessage.style.transition = 'all 0.3s ease';
+                    errorMessage.style.opacity = '1';
+                    errorMessage.style.transform = 'translateY(0)';
+                }, 10);
+            } finally {
+                // Reset button
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+                submitButton.style.background = 'linear-gradient(135deg, #4392f1 0%, #53d8fb 100%)';
+                submitButton.style.transform = 'translateY(0)';
+                submitButton.style.boxShadow = '0 4px 16px rgba(67, 146, 241, 0.3)';
+            }
+        });
+    </script>
+    <script>
+        function toggleMobileNav() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    document.getElementById('navLinks').classList.remove('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

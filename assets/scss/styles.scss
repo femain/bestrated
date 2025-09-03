@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:300|Open+Sans:700');
+$primary-color: #4392f1;
+$alternate-color: #53d8fb;
+$secondary-color: #363732;
+body {
+  font-family: 'Nunito Sans', sans-serif;
+  background-color: #ffffff !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-mont {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+}
+
+html {
+  background-color: #ffffff !important;
+}
+
+a {
+  text-decoration: none;
+}
+
+#app {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+#main {
+  flex: 1;
+}
+
+.v-list__tile--avatar {
+  height: 100px;
+}
+
+.bg-image {
+  backdrop-filter: grayscale(30%);
+}
+
+.application.theme--light {
+  background-color: #ffffff;
+}
+
+.transparent-toolbar {
+  background-color: transparent !important;
+  border: none;
+}
+
+.share-icon {
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.primary--text {
+  color: #4392f1 !important;
+}
+
+.primary {
+  background-color: $primary-color;
+}
+
+.blue-gradient {
+  background-image: linear-gradient(98deg, #4392f1, #53d8fb) !important;
+  color: #ffffff !important;
+}
+
+.btn {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+}
+
+.v-btn {
+  box-shadow: 1px 1px #808080;
+}
+
+.v-btn--round,
+.v-btn--round:after {
+  border-radius: 12px;
+}
+
+.parallax {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#create .v-speed-dial {
+  position: absolute;
+}
+
+#create .v-btn--floating {
+  position: relative;
+}

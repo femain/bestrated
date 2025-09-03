@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Hospital - Best Rated Hospitals</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav-brand">
+                <img src="assets/img/logo.png" alt="Best Rated Hospitals" class="nav-logo" style="height: 40px; margin-right: 12px; vertical-align: middle;">
+                <span>Best Rated Hospitals</span>
+            </div>
+            <button class="nav-toggle" onclick="toggleMobileNav()">
+                <span class="icon">menu</span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="container my-5">
+            <div class="card">
+                <div class="card-title">
+                    <h2><span class="icon">rate_review</span> Rate & Review Hospital</h2>
+                </div>
+                <div class="card-text">
+                    <p>Review functionality coming soon...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Best Rated Hospitals. All rights reserved.</p>
+            <p>Helping you find the best healthcare around you.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileNav() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    document.getElementById('navLinks').classList.remove('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

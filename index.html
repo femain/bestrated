@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Rated Hospitals</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav-brand">
+                <img src="assets/img/logo.png" alt="Best Rated Hospitals" class="nav-logo" style="height: 40px; margin-right: 12px; vertical-align: middle;">
+                <span>Best Rated Hospitals</span>
+            </div>
+            <button class="nav-toggle" onclick="toggleMobileNav()">
+                <span class="icon">menu</span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="layout hero-layout">
+                    <div class="flex md6 hero-content">
+                        <h1 class="hero-title">Enhancing Healthcare Access for All</h1>
+                        <p class="hero-subtitle">Find and review the best healthcare providers in your area. Help others make informed decisions about their medical care.</p>
+                        <div class="hero-features">
+                            <div class="feature-item">
+                                <span class="icon feature-icon">verified_user</span>
+                                <span>Verified Reviews</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="icon feature-icon">location_on</span>
+                                <span>Local Providers</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="icon feature-icon">star</span>
+                                <span>Quality Ratings</span>
+                            </div>
+                        </div>
+                        <div class="hero-actions">
+                            <a href="search.html" class="btn btn-primary btn-large">Find Healthcare Providers</a>
+                            <a href="register.html" class="btn btn-outline btn-large">Join Our Community</a>
+                        </div>
+                    </div>
+                    <div class="flex md6 hero-image">
+                        <div class="medical-illustration">
+                            <div class="heart-container">
+                                <span class="icon heart-icon">favorite</span>
+                                <div class="pulse-ring"></div>
+                                <div class="pulse-ring pulse-ring-delay"></div>
+                            </div>
+                            <div class="stats-overlay">
+                                <div class="stat-item">
+                                    <div class="stat-number">1,200+</div>
+                                    <div class="stat-label">Healthcare Providers</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">15,000+</div>
+                                    <div class="stat-label">Patient Reviews</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- User-Centered Design Section -->
+        <section class="features-section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">User-Centered Design</h2>
+                    <p class="section-subtitle">Our platform is designed with patients and healthcare providers in mind</p>
+                </div>
+                
+                <div class="layout features-grid">
+                    <div class="flex md4">
+                        <div class="feature-card">
+                            <div class="feature-icon-wrapper">
+                                <span class="icon feature-icon-large">search</span>
+                            </div>
+                            <h3 class="feature-title">Easy Search</h3>
+                            <p class="feature-description">Find healthcare providers quickly with our intuitive search and filtering system.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex md4">
+                        <div class="feature-card">
+                            <div class="feature-icon-wrapper">
+                                <span class="icon feature-icon-large">rate_review</span>
+                            </div>
+                            <h3 class="feature-title">Honest Reviews</h3>
+                            <p class="feature-description">Read authentic patient reviews and share your own healthcare experiences.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex md4">
+                        <div class="feature-card">
+                            <div class="feature-icon-wrapper">
+                                <span class="icon feature-icon-large">verified</span>
+                            </div>
+                            <h3 class="feature-title">Verified Quality</h3>
+                            <p class="feature-description">All healthcare providers are verified and rated based on quality standards.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Healthcare Professionals Section -->
+        <section class="professionals-section">
+            <div class="container">
+                <div class="layout professionals-layout">
+                    <div class="flex md6">
+                        <div class="professionals-content">
+                            <h2 class="section-title">Trusted by Healthcare Professionals</h2>
+                            <p class="section-description">Join thousands of healthcare providers and patients who trust our platform for honest, reliable healthcare reviews.</p>
+                            <div class="professionals-stats">
+                                <div class="stat-box">
+                                    <div class="stat-number">500+</div>
+                                    <div class="stat-label">Hospitals</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">2,000+</div>
+                                    <div class="stat-label">Doctors</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">50,000+</div>
+                                    <div class="stat-label">Patients</div>
+                                </div>
+                            </div>
+                            <div class="cta-buttons">
+                                <a href="register-hospital.html" class="btn btn-primary btn-large">
+                                    <span class="icon">local_hospital</span>
+                                    Register Hospital
+                                </a>
+                                <a href="register.html" class="btn btn-outline btn-large">
+                                    <span class="icon">person_add</span>
+                                    Join as Patient
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex md6">
+                        <div class="professionals-image">
+                            <div class="doctor-cards">
+                                <div class="doctor-card">
+                                    <div class="doctor-avatar">
+                                        <div class="avatar-placeholder" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">SJ</div>
+                                    </div>
+                                    <h4>Dr. Sarah Johnson</h4>
+                                    <p class="specialty">Cardiologist</p>
+                                    <p class="hospital">Mayo Clinic</p>
+                                    <div class="rating">
+                                        <span class="stars">★★★★★</span>
+                                        <span class="rating-text">4.9/5 (127 reviews)</span>
+                                    </div>
+                                    <div class="testimonial">
+                                        "Exceptional care and expertise. Dr. Johnson explained everything clearly and made me feel comfortable throughout my treatment."
+                                        <cite>- Patient Review</cite>
+                                    </div>
+                                </div>
+                                
+                                <div class="doctor-card">
+                                    <div class="doctor-avatar">
+                                        <div class="avatar-placeholder" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">MC</div>
+                                    </div>
+                                    <h4>Dr. Michael Chen</h4>
+                                    <p class="specialty">Neurologist</p>
+                                    <p class="hospital">Johns Hopkins</p>
+                                    <div class="rating">
+                                        <span class="stars">★★★★★</span>
+                                        <span class="rating-text">4.8/5 (89 reviews)</span>
+                                    </div>
+                                    <div class="testimonial">
+                                        "Dr. Chen's thorough approach and cutting-edge treatments helped me recover faster than expected."
+                                        <cite>- Patient Review</cite>
+                                    </div>
+                                </div>
+                                
+                                <div class="doctor-card">
+                                    <div class="doctor-avatar">
+                                        <div class="avatar-placeholder" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">ER</div>
+                                    </div>
+                                    <h4>Dr. Emily Rodriguez</h4>
+                                    <p class="specialty">Pediatrician</p>
+                                    <p class="hospital">Children's Hospital</p>
+                                    <div class="rating">
+                                        <span class="stars">★★★★★</span>
+                                        <span class="rating-text">4.9/5 (203 reviews)</span>
+                                    </div>
+                                    <div class="testimonial">
+                                        "Amazing with children. My daughter actually looks forward to her appointments now!"
+                                        <cite>- Parent Review</cite>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hospital Rankings Section -->
+        <section class="container my-5">
+            <div class="jumbotron">
+                <h3 style="font-size: 2.5rem;">Hospital Rankings</h3>
+                <p style="font-size: 1.2rem;">View the Best Hospitals around You</p>
+                <br><hr><br>
+                <a href="search.html" class="blue--text" style="font-size: 1.5rem;">
+                    Search For Your Hospital
+                    <span class="icon blue--text">search</span>
+                </a>
+                
+                <!-- Sample Hospital List -->
+                <div class="mt-3">
+                    <div class="card">
+                        <div class="card-title">
+                            <h4>Top Rated Hospitals</h4>
+                        </div>
+                        <div class="card-text">
+                            <div class="layout">
+                                <div class="flex md4">
+                                    <div class="card blue-gradient">
+                                        <div class="card-text text-center">
+                                            <h4 class="white--text">Lagos University Teaching Hospital</h4>
+                                            <p class="white--text">Lagos, Nigeria</p>
+                                            <div class="stat-card">
+                                                <div class="stat-value">4.2</div>
+                                                <div class="stat-title">Patient Safety Score</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex md4">
+                                    <div class="card blue-gradient">
+                                        <div class="card-text text-center">
+                                            <h4 class="white--text">University College Hospital</h4>
+                                            <p class="white--text">Ibadan, Nigeria</p>
+                                            <div class="stat-card">
+                                                <div class="stat-value">4.0</div>
+                                                <div class="stat-title">Patient Safety Score</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex md4">
+                                    <div class="card blue-gradient">
+                                        <div class="card-text text-center">
+                                            <h4 class="white--text">Ahmadu Bello University Hospital</h4>
+                                            <p class="white--text">Zaria, Nigeria</p>
+                                            <div class="stat-card">
+                                                <div class="stat-value">3.8</div>
+                                                <div class="stat-title">Patient Safety Score</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Best Rated Hospitals. All rights reserved.</p>
+            <p>Helping you find the best healthcare around you.</p>
+        </div>
+    </footer>
+    <script>
+        function toggleMobileNav() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        // Close mobile nav when clicking on a link
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    document.getElementById('navLinks').classList.remove('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

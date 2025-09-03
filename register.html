@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Best Rated Hospitals</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav-brand">
+                <img src="assets/img/logo.png" alt="Best Rated Hospitals" class="nav-logo" style="height: 40px; margin-right: 12px; vertical-align: middle;">
+                <span>Best Rated Hospitals</span>
+            </div>
+            <button class="nav-toggle" onclick="toggleMobileNav()">
+                <span class="icon">menu</span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content" style="min-height: 100vh; display: flex; align-items: center; padding: 40px 0; background: linear-gradient(135deg, rgba(248, 250, 252, 0.95) 0%, rgba(241, 245, 249, 0.9) 100%), url('assets/img/bg.jpg'); background-size: cover; background-position: center; background-attachment: fixed;">
+        <div class="container">
+            <div class="layout" style="justify-content: center;">
+                <div class="flex sm6 md6">
+                    <div class="card" style="box-shadow: 0 12px 40px rgba(0,0,0,0.1); border-radius: 20px; overflow: hidden; border: 1px solid var(--gray-200); background: var(--white);">
+                        <div class="card-header" style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); color: white; text-align: center; padding: 40px 32px;">
+                            <div class="logo-container" style="margin-bottom: 20px;">
+                                <div class="logo-circle" style="width: 100px; height: 100px; background: rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; backdrop-filter: blur(10px); padding: 20px; box-sizing: border-box;">
+                                    <img src="assets/img/logo.png" alt="Best Rated Hospitals" style="width: 60px; height: 60px; filter: brightness(0) invert(1);">
+                                </div>
+                            </div>
+                            <h2 style="margin-bottom: 8px; font-size: 1.75rem; font-weight: 600;">Join Our Healthcare Community</h2>
+                            <p style="margin: 0; opacity: 0.9; font-size: 1rem;">Create your patient account to get started</p>
+                        </div>
+                        <div class="card-text" style="padding: 40px 32px;">
+                            <form id="registerForm">
+                                <div class="form-group" style="margin-bottom: 20px;">
+                                    <label class="form-label" for="fullName" style="color: var(--text-primary); font-weight: 600; margin-bottom: 8px; display: block; font-size: 0.95rem;">Full Name</label>
+                                    <div style="position: relative;">
+                                        <i class="material-icons" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--primary-color); font-size: 20px;">person</i>
+                                        <input type="text" id="fullName" name="fullName" class="form-control" required 
+                                               placeholder="Enter your full name"
+                                               style="padding: 16px 16px 16px 52px; border: 2px solid var(--gray-300); border-radius: 12px; font-size: 16px; transition: all 0.3s ease; background: var(--white); width: 100%; box-sizing: border-box;">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group" style="margin-bottom: 20px;">
+                                    <label class="form-label" for="email" style="color: var(--text-primary); font-weight: 600; margin-bottom: 8px; display: block; font-size: 0.95rem;">Email Address</label>
+                                    <div style="position: relative;">
+                                        <i class="material-icons" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--primary-color); font-size: 20px;">email</i>
+                                        <input type="email" id="email" name="email" class="form-control" required 
+                                               placeholder="Enter your email address"
+                                               style="padding: 16px 16px 16px 52px; border: 2px solid var(--gray-300); border-radius: 12px; font-size: 16px; transition: all 0.3s ease; background: var(--white); width: 100%; box-sizing: border-box;">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group" style="margin-bottom: 20px;">
+                                    <label class="form-label" for="phone" style="color: var(--text-primary); font-weight: 600; margin-bottom: 8px; display: block; font-size: 0.95rem;">Phone Number</label>
+                                    <div style="position: relative;">
+                                        <i class="material-icons" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--primary-color); font-size: 20px;">phone</i>
+                                        <input type="tel" id="phone" name="phone" class="form-control" required 
+                                               placeholder="Enter your phone number"
+                                               style="padding: 16px 16px 16px 52px; border: 2px solid var(--gray-300); border-radius: 12px; font-size: 16px; transition: all 0.3s ease; background: var(--white); width: 100%; box-sizing: border-box;">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group" style="margin-bottom: 24px;">
+                                    <label class="form-label" for="password" style="color: var(--text-primary); font-weight: 600; margin-bottom: 8px; display: block; font-size: 0.95rem;">Password</label>
+                                    <div style="position: relative;">
+                                        <i class="material-icons" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--primary-color); font-size: 20px;">lock</i>
+                                        <input type="password" id="password" name="password" class="form-control" minlength="6" required 
+                                               placeholder="Create a secure password (min 6 characters)"
+                                               style="padding: 16px 16px 16px 52px; border: 2px solid var(--gray-300); border-radius: 12px; font-size: 16px; transition: all 0.3s ease; background: var(--white); width: 100%; box-sizing: border-box;">
+                                    </div>
+                                    <small style="color: #666; font-size: 13px; margin-top: 6px; display: block;">Minimum 6 characters</small>
+                                </div>
+                                
+                                <div style="margin-bottom: 24px;">
+                                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 18px; border-radius: 12px; font-size: 16px; font-weight: 600; background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); border: none; box-shadow: 0 4px 20px rgba(67, 146, 241, 0.25); transition: all 0.3s ease; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                        <i class="material-icons" style="font-size: 20px;">person_add</i>
+                                        Create Your Account
+                                    </button>
+                                    
+                                    <div style="text-align: center; padding-top: 20px; border-top: 1px solid var(--gray-200);">
+                                        <p style="color: var(--text-secondary); margin-bottom: 12px; font-size: 0.9rem;">Already have an account?</p>
+                                        <a href="login.html" style="color: var(--primary-color); text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; padding: 12px 16px; border-radius: 8px; transition: all 0.3s ease; border: 2px solid var(--primary-color); background: transparent;">
+                                            <i class="material-icons" style="font-size: 18px;">login</i>
+                                            Sign In Instead
+                                        </a>
+                                    </div>
+                                </div>
+
+                            <!-- Success Message (hidden by default) -->
+                            <div id="successMessage" style="display: none; margin-top: 24px; padding: 20px; background: linear-gradient(135deg, #4caf50, #66bb6a); color: white; border-radius: 12px; text-align: center; box-shadow: 0 4px 16px rgba(76, 175, 80, 0.3);">
+                                <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 8px;">
+                                    <span class="icon" style="font-size: 28px;">check_circle</span>
+                                    <strong style="font-size: 18px;">Success!</strong>
+                                </div>
+                                <p style="margin: 0; font-size: 15px; opacity: 0.95;">Account created successfully. Redirecting to login...</p>
+                            </div>
+
+                            <!-- Error Message (hidden by default) -->
+                            <div id="errorMessage" style="display: none; margin-top: 24px; padding: 20px; background: linear-gradient(135deg, #f44336, #ef5350); color: white; border-radius: 12px; text-align: center; box-shadow: 0 4px 16px rgba(244, 67, 54, 0.3);">
+                                <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 8px;">
+                                    <span class="icon" style="font-size: 28px;">error</span>
+                                    <strong style="font-size: 18px;">Registration Failed</strong>
+                                </div>
+                                <p id="errorText" style="margin: 0; font-size: 15px; opacity: 0.95;">Please check your information and try again.</p>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const API_BASE_URL = 'https://healthier-a4a89cbfae6a.herokuapp.com/api';
+        
+        // Enhanced form interactions
+        const inputs = document.querySelectorAll('.form-control');
+        const submitButton = document.querySelector('button[type="submit"]');
+        const loginLink = document.querySelector('a[href="login.html"]');
+        
+        // Input focus effects
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.borderColor = '#4392f1';
+                this.style.boxShadow = '0 0 0 3px rgba(67, 146, 241, 0.1)';
+                this.style.background = '#ffffff';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.style.borderColor = '#e1e5e9';
+                this.style.boxShadow = 'none';
+                this.style.background = '#fafbfc';
+            });
+        });
+        
+        // Button hover effects
+        submitButton.addEventListener('mouseenter', function() {
+            if (!this.disabled) {
+                this.style.transform = 'translateY(-2px)';
+                this.style.boxShadow = '0 8px 24px rgba(67, 146, 241, 0.4)';
+            }
+        });
+        
+        submitButton.addEventListener('mouseleave', function() {
+            if (!this.disabled) {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '0 4px 16px rgba(67, 146, 241, 0.3)';
+            }
+        });
+        
+        // Link hover effect
+        loginLink.addEventListener('mouseenter', function() {
+            this.style.background = 'rgba(67, 146, 241, 0.1)';
+            this.style.transform = 'translateX(-2px)';
+        });
+        
+        loginLink.addEventListener('mouseleave', function() {
+            this.style.background = 'transparent';
+            this.style.transform = 'translateX(0)';
+        });
+        
+        // Form submission with API integration
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const password = document.getElementById('password').value;
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Hide previous messages
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            
+            // Validation
+            if (!fullName || !email || !phone || !password) {
+                document.getElementById('errorText').textContent = 'Please fill in all fields.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+            
+            if (password.length < 6) {
+                document.getElementById('errorText').textContent = 'Password must be at least 6 characters.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById('errorText').textContent = 'Please enter a valid email address.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+            
+            // Show loading state
+            const originalText = submitButton.innerHTML;
+            submitButton.innerHTML = '<span class="icon" style="margin-right: 8px;">hourglass_empty</span> Creating Account...';
+            submitButton.disabled = true;
+            submitButton.style.background = 'linear-gradient(135deg, #90a4ae, #b0bec5)';
+            submitButton.style.transform = 'scale(0.98)';
+            submitButton.style.boxShadow = '0 2px 8px rgba(144, 164, 174, 0.3)';
+            
+            try {
+                // API call for registration
+                const response = await fetch(`${API_BASE_URL}/auth/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: fullName,
+                        email: email,
+                        phone: phone,
+                        password: password,
+                        role: 'patient'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.status === 'success') {
+                    // Success animation
+                    successMessage.style.display = 'block';
+                    successMessage.style.opacity = '0';
+                    successMessage.style.transform = 'translateY(10px)';
+                    setTimeout(() => {
+                        successMessage.style.transition = 'all 0.3s ease';
+                        successMessage.style.opacity = '1';
+                        successMessage.style.transform = 'translateY(0)';
+                    }, 10);
+                    
+                    // Redirect after success
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 2000);
+                } else {
+                    // Error handling
+                    const errorMsg = data.message || 'Registration failed. Please try again.';
+                    document.getElementById('errorText').textContent = errorMsg;
+                    errorMessage.style.display = 'block';
+                    errorMessage.style.opacity = '0';
+                    errorMessage.style.transform = 'translateY(10px)';
+                    setTimeout(() => {
+                        errorMessage.style.transition = 'all 0.3s ease';
+                        errorMessage.style.opacity = '1';
+                        errorMessage.style.transform = 'translateY(0)';
+                    }, 10);
+                }
+            } catch (error) {
+                console.error('Registration error:', error);
+                document.getElementById('errorText').textContent = 'Network error. Please try again.';
+                errorMessage.style.display = 'block';
+                errorMessage.style.opacity = '0';
+                errorMessage.style.transform = 'translateY(10px)';
+                setTimeout(() => {
+                    errorMessage.style.transition = 'all 0.3s ease';
+                    errorMessage.style.opacity = '1';
+                    errorMessage.style.transform = 'translateY(0)';
+                }, 10);
+            } finally {
+                // Reset button
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+                submitButton.style.background = 'linear-gradient(135deg, #4392f1 0%, #53d8fb 100%)';
+                submitButton.style.transform = 'translateY(0)';
+                submitButton.style.boxShadow = '0 4px 16px rgba(67, 146, 241, 0.3)';
+            }
+        });
+    </script>
+    <script>
+        function toggleMobileNav() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    document.getElementById('navLinks').classList.remove('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
