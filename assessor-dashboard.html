@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessor Dashboard - Best Rated Hospitals</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav-brand">
+                <img src="assets/img/logo.png" alt="Best Rated Hospitals" class="nav-logo" style="height: 40px; margin-right: 12px; vertical-align: middle;">
+                <span>Best Rated Hospitals</span>
+            </div>
+            <button class="nav-toggle" onclick="toggleMobileNav()">
+                <span class="icon">menu</span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="#" onclick="logout()">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content" style="background: linear-gradient(135deg, rgba(248, 250, 252, 0.95) 0%, rgba(241, 245, 249, 0.9) 100%), url('assets/img/bg.jpg'); background-size: cover; background-position: center; background-attachment: fixed; min-height: 100vh; padding: 40px 0;">
+        <div class="container">
+            <!-- Welcome Section -->
+            <div class="layout" style="margin-bottom: 40px;">
+                <div class="flex xs12">
+                    <div class="card" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; border-radius: 16px; padding: 32px;">
+                        <div class="layout" style="align-items: center;">
+                            <div class="flex xs12 md8">
+                                <h1 style="margin: 0 0 8px 0; font-size: 2rem;">Welcome, Quality Assessor</h1>
+                                <p style="margin: 0; opacity: 0.9; font-size: 1.1rem;">Monitor healthcare quality and manage assessments</p>
+                            </div>
+                            <div class="flex xs12 md4" style="text-align: right;">
+                                <div class="icon" style="font-size: 64px; opacity: 0.3;">verified_user</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Stats -->
+            <div class="layout" style="gap: 20px; margin-bottom: 40px;" id="dashboardStats">
+                <div class="flex xs12 md3">
+                    <div class="card" style="text-align: center; padding: 24px; border-radius: 12px;">
+                        <div class="icon" style="font-size: 48px; color: var(--primary-color); margin-bottom: 16px;">assignment</div>
+                        <h3 style="margin: 0 0 8px 0; font-size: 2rem; color: var(--text-primary);" id="totalAssessments">-</h3>
+                        <p style="margin: 0; color: var(--text-secondary);">Total Assessments</p>
+                    </div>
+                </div>
+                <div class="flex xs12 md3">
+                    <div class="card" style="text-align: center; padding: 24px; border-radius: 12px;">
+                        <div class="icon" style="font-size: 48px; color: var(--warning-color); margin-bottom: 16px;">pending_actions</div>
+                        <h3 style="margin: 0 0 8px 0; font-size: 2rem; color: var(--text-primary);" id="pendingAssessments">-</h3>
+                        <p style="margin: 0; color: var(--text-secondary);">Pending Reviews</p>
+                    </div>
+                </div>
+                <div class="flex xs12 md3">
+                    <div class="card" style="text-align: center; padding: 24px; border-radius: 12px;">
+                        <div class="icon" style="font-size: 48px; color: var(--success-color); margin-bottom: 16px;">check_circle</div>
+                        <h3 style="margin: 0 0 8px 0; font-size: 2rem; color: var(--text-primary);" id="completedAssessments">-</h3>
+                        <p style="margin: 0; color: var(--text-secondary);">Completed</p>
+                    </div>
+                </div>
+                <div class="flex xs12 md3">
+                    <div class="card" style="text-align: center; padding: 24px; border-radius: 12px;">
+                        <div class="icon" style="font-size: 48px; color: var(--info-color); margin-bottom: 16px;">local_hospital</div>
+                        <h3 style="margin: 0 0 8px 0; font-size: 2rem; color: var(--text-primary);" id="providersAssessed">-</h3>
+                        <p style="margin: 0; color: var(--text-secondary);">Providers Assessed</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Dashboard Content -->
+            <div class="layout" style="gap: 30px;">
+                <!-- Pending Assessments -->
+                <div class="flex xs12 md8">
+                    <div class="card" style="border-radius: 12px;">
+                        <div class="card-header" style="padding: 24px; border-bottom: 1px solid var(--gray-200);">
+                            <div class="layout" style="align-items: center; justify-content: space-between;">
+                                <h2 style="margin: 0; color: var(--text-primary);">Pending Assessments</h2>
+                                <button class="btn btn-primary" onclick="refreshPendingAssessments()">
+                                    <span class="icon">refresh</span>
+                                    Refresh
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-text" style="padding: 0;">
+                            <div id="pendingAssessmentsList" style="max-height: 400px; overflow-y: auto;">
+                                <!-- Pending assessments will be loaded here -->
+                                <div style="padding: 40px; text-align: center; color: var(--text-secondary);">
+                                    <div class="icon" style="font-size: 48px; opacity: 0.5; margin-bottom: 16px;">hourglass_empty</div>
+                                    <p>Loading pending assessments...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="flex xs12 md4">
+                    <div class="card" style="border-radius: 12px;">
+                        <div class="card-header" style="padding: 24px; border-bottom: 1px solid var(--gray-200);">
+                            <h2 style="margin: 0; color: var(--text-primary);">Quick Actions</h2>
+                        </div>
+                        <div class="card-text" style="padding: 24px;">
+                            <div style="display: flex; flex-direction: column; gap: 16px;">
+                                <button class="btn btn-outline btn-large" onclick="startNewAssessment()" style="justify-content: flex-start;">
+                                    <span class="icon">add_task</span>
+                                    New Assessment
+                                </button>
+                                <button class="btn btn-outline btn-large" onclick="viewProviderScores()" style="justify-content: flex-start;">
+                                    <span class="icon">analytics</span>
+                                    Provider Scores
+                                </button>
+                                <button class="btn btn-outline btn-large" onclick="viewReports()" style="justify-content: flex-start;">
+                                    <span class="icon">assessment</span>
+                                    Assessment Reports
+                                </button>
+                                <button class="btn btn-outline btn-large" onclick="viewProfile()" style="justify-content: flex-start;">
+                                    <span class="icon">person</span>
+                                    My Profile
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Provider Quality Scores -->
+            <div class="layout" style="margin-top: 40px;">
+                <div class="flex xs12">
+                    <div class="card" style="border-radius: 12px;">
+                        <div class="card-header" style="padding: 24px; border-bottom: 1px solid var(--gray-200);">
+                            <div class="layout" style="align-items: center; justify-content: space-between;">
+                                <h2 style="margin: 0; color: var(--text-primary);">Provider Quality Scores</h2>
+                                <div style="display: flex; gap: 12px;">
+                                    <select id="scoreFilter" onchange="filterProviderScores()" style="padding: 8px 12px; border: 1px solid var(--gray-300); border-radius: 6px;">
+                                        <option value="all">All Providers</option>
+                                        <option value="excellent">Excellent (90+)</option>
+                                        <option value="good">Good (80-89)</option>
+                                        <option value="fair">Fair (70-79)</option>
+                                        <option value="poor">Poor (<70)</option>
+                                    </select>
+                                    <button class="btn btn-primary" onclick="refreshProviderScores()">
+                                        <span class="icon">refresh</span>
+                                        Refresh
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-text" style="padding: 0;">
+                            <div id="providerScoresList" style="max-height: 500px; overflow-y: auto;">
+                                <!-- Provider scores will be loaded here -->
+                                <div style="padding: 40px; text-align: center; color: var(--text-secondary);">
+                                    <div class="icon" style="font-size: 48px; opacity: 0.5; margin-bottom: 16px;">analytics</div>
+                                    <p>Loading provider quality scores...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Best Rated Hospitals. All rights reserved.</p>
+            <p>Quality Assessment Dashboard</p>
+        </div>
+    </footer>
+
+    <script>
+        const API_BASE_URL = 'https://healthier-a4a89cbfae6a.herokuapp.com/api';
+        let currentUser = null;
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthentication();
+            loadDashboardStats();
+            loadPendingAssessments();
+            loadProviderScores();
+        });
+
+        // Check if user is authenticated
+        function checkAuthentication() {
+            const token = localStorage.getItem('assessor_token');
+            if (!token) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Decode user info from token (simplified)
+            try {
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                currentUser = payload;
+            } catch (error) {
+                console.error('Invalid token:', error);
+                logout();
+            }
+        }
+
+        // Load dashboard statistics
+        async function loadDashboardStats() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/assessor/dashboard/stats`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('assessor_token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const stats = await response.json();
+                    document.getElementById('totalAssessments').textContent = stats.totalAssessments || 0;
+                    document.getElementById('pendingAssessments').textContent = stats.pendingAssessments || 0;
+                    document.getElementById('completedAssessments').textContent = stats.completedAssessments || 0;
+                    document.getElementById('providersAssessed').textContent = stats.providersAssessed || 0;
+                } else {
+                    console.error('Failed to load dashboard stats');
+                }
+            } catch (error) {
+                console.error('Error loading dashboard stats:', error);
+            }
+        }
+
+        // Load pending assessments
+        async function loadPendingAssessments() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/assessor/pending-assessments`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('assessor_token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const assessments = await response.json();
+                    displayPendingAssessments(assessments);
+                } else {
+                    document.getElementById('pendingAssessmentsList').innerHTML = 
+                        '<div style="padding: 40px; text-align: center; color: var(--text-secondary);"><p>No pending assessments found.</p></div>';
+                }
+            } catch (error) {
+                console.error('Error loading pending assessments:', error);
+                document.getElementById('pendingAssessmentsList').innerHTML = 
+                    '<div style="padding: 40px; text-align: center; color: var(--error-color);"><p>Error loading assessments.</p></div>';
+            }
+        }
+
+        // Display pending assessments
+        function displayPendingAssessments(assessments) {
+            const container = document.getElementById('pendingAssessmentsList');
+            
+            if (!assessments || assessments.length === 0) {
+                container.innerHTML = '<div style="padding: 40px; text-align: center; color: var(--text-secondary);"><p>No pending assessments.</p></div>';
+                return;
+            }
+            
+            container.innerHTML = assessments.map(assessment => `
+                <div style="padding: 20px; border-bottom: 1px solid var(--gray-200); display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h4 style="margin: 0 0 8px 0; color: var(--text-primary);">${assessment.providerName}</h4>
+                        <p style="margin: 0 0 4px 0; color: var(--text-secondary); font-size: 0.9rem;">Type: ${assessment.assessmentType}</p>
+                        <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem;">Due: ${new Date(assessment.dueDate).toLocaleDateString()}</p>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn btn-primary btn-small" onclick="startAssessment('${assessment.id}')">
+                            <span class="icon">play_arrow</span>
+                            Start
+                        </button>
+                        <button class="btn btn-outline btn-small" onclick="viewAssessmentDetails('${assessment.id}')">
+                            <span class="icon">visibility</span>
+                            View
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Load provider quality scores
+        async function loadProviderScores() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/assessor/provider-scores`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('assessor_token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const scores = await response.json();
+                    displayProviderScores(scores);
+                } else {
+                    document.getElementById('providerScoresList').innerHTML = 
+                        '<div style="padding: 40px; text-align: center; color: var(--text-secondary);"><p>No provider scores available.</p></div>';
+                }
+            } catch (error) {
+                console.error('Error loading provider scores:', error);
+                document.getElementById('providerScoresList').innerHTML = 
+                    '<div style="padding: 40px; text-align: center; color: var(--error-color);"><p>Error loading provider scores.</p></div>';
+            }
+        }
+
+        // Display provider scores
+        function displayProviderScores(scores) {
+            const container = document.getElementById('providerScoresList');
+            
+            if (!scores || scores.length === 0) {
+                container.innerHTML = '<div style="padding: 40px; text-align: center; color: var(--text-secondary);"><p>No provider scores available.</p></div>';
+                return;
+            }
+            
+            container.innerHTML = scores.map(provider => {
+                const scoreColor = provider.overallScore >= 90 ? 'var(--success-color)' : 
+                                 provider.overallScore >= 80 ? 'var(--info-color)' : 
+                                 provider.overallScore >= 70 ? 'var(--warning-color)' : 'var(--error-color)';
+                
+                return `
+                    <div style="padding: 20px; border-bottom: 1px solid var(--gray-200);">
+                        <div class="layout" style="align-items: center; justify-content: space-between;">
+                            <div class="flex xs12 md8">
+                                <h4 style="margin: 0 0 8px 0; color: var(--text-primary);">${provider.name}</h4>
+                                <p style="margin: 0 0 4px 0; color: var(--text-secondary); font-size: 0.9rem;">${provider.type} • ${provider.location}</p>
+                                <div style="display: flex; gap: 16px; margin-top: 8px;">
+                                    <span style="font-size: 0.8rem; color: var(--text-secondary);">Patient Safety: ${provider.patientSafety}%</span>
+                                    <span style="font-size: 0.8rem; color: var(--text-secondary);">Quality: ${provider.qualityManagement}%</span>
+                                    <span style="font-size: 0.8rem; color: var(--text-secondary);">Communication: ${provider.communication}%</span>
+                                </div>
+                            </div>
+                            <div class="flex xs12 md4" style="text-align: right;">
+                                <div style="font-size: 2rem; font-weight: bold; color: ${scoreColor};">${provider.overallScore}%</div>
+                                <p style="margin: 0; font-size: 0.8rem; color: var(--text-secondary);">Overall Score</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Refresh functions
+        function refreshPendingAssessments() {
+            loadPendingAssessments();
+        }
+
+        function refreshProviderScores() {
+            loadProviderScores();
+        }
+
+        // Filter provider scores
+        function filterProviderScores() {
+            // Implementation for filtering would go here
+            loadProviderScores();
+        }
+
+        // Action functions
+        function startNewAssessment() {
+            window.location.href = 'assessment-form.html';
+        }
+
+        function viewProviderScores() {
+            document.getElementById('providerScoresList').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function viewReports() {
+            window.location.href = 'assessment-reports.html';
+        }
+
+        function viewProfile() {
+            window.location.href = 'assessor-profile.html';
+        }
+
+        function startAssessment(assessmentId) {
+            window.location.href = `assessment-form.html?id=${assessmentId}`;
+        }
+
+        function viewAssessmentDetails(assessmentId) {
+            window.location.href = `assessment-details.html?id=${assessmentId}`;
+        }
+
+        // Mobile navigation toggle
+        function toggleMobileNav() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('assessor_token');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>
