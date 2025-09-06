@@ -20,5 +20,5 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
           protocol: ftp
-          server-dir: /public_html/   # adjust to your FTP directory
+          server-dir: /   # adjust to your FTP directory
           local-dir: ./               # your repo root
