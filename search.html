@@ -343,52 +343,80 @@
                 return;
             }
             
-            resultsContainer.innerHTML = providers.map(provider => `
-                <div class="flex xs12 md6">
-                    <div class="card blue-gradient">
-                        <div class="card-text">
-                            <div class="layout">
-                                <div class="flex">
-                                    <h4 class="white--text">${provider.name}</h4>
-                                    <p class="white--text">
-                                        <span class="icon">location_city</span> ${provider.location}
-                                    </p>
-                                    <p class="white--text">
-                                        <span class="icon">room</span> ${provider.city}, ${provider.country}
-                                    </p>
-                                    <p class="white--text">
-                                        <span class="icon">local_hospital</span> ${provider.specialization}
-                                    </p>
-                                    <p class="white--text">
-                                        <span class="icon">phone</span> ${provider.contactInfo.phone}
-                                    </p>
-                                    <p class="white--text">
-                                        <span class="icon">schedule</span> Available: ${provider.availability}
-                                    </p>
+            // Create table-style rows instead of cards
+            resultsContainer.innerHTML = `
+                <div style="width: 100%;">
+                    <div style="display: flex; background: var(--gray-100); padding: 16px; border-radius: 12px 12px 0 0; font-weight: 600; color: var(--text-primary); border-bottom: 2px solid var(--gray-200);">
+                        <div style="flex: 3; padding-right: 16px;">Provider</div>
+                        <div style="flex: 2; padding-right: 16px;">Location</div>
+                        <div style="flex: 2; padding-right: 16px;">Specialization</div>
+                        <div style="flex: 1; padding-right: 16px; text-align: center;">Rating</div>
+                        <div style="flex: 1; padding-right: 16px; text-align: center;">Reviews</div>
+                        <div style="flex: 1; text-align: center;">Actions</div>
+                    </div>
+                    ${providers.map((provider, index) => `
+                        <div style="display: flex; align-items: center; padding: 20px 16px; border-bottom: 1px solid var(--gray-200); background: ${index % 2 === 0 ? 'var(--white)' : 'var(--gray-50)'}; transition: all 0.3s ease;" 
+                             onmouseover="this.style.background='var(--very-light-blue)'; this.style.transform='translateX(4px)'" 
+                             onmouseout="this.style.background='${index % 2 === 0 ? 'var(--white)' : 'var(--gray-50)'}'; this.style.transform='translateX(0)'">
+                            <div style="flex: 3; padding-right: 16px;">
+                                <h4 style="margin: 0 0 8px 0; color: var(--text-primary); font-size: 1.1rem; font-weight: 600;">${provider.name}</h4>
+                                <div style="display: flex; align-items: center; gap: 4px; color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 4px;">
+                                    <i class="material-icons" style="font-size: 16px;">phone</i>
+                                    <span>${provider.contactInfo?.phone || 'N/A'}</span>
                                 </div>
-                                <div class="flex" style="flex: 0 0 120px;">
-                                    <div class="stat-card">
-                                        <div class="stat-value">${provider.averageRating}</div>
-                                        <div class="stat-title">Rating</div>
-                                    </div>
-                                    <div class="stat-card">
-                                        <div class="stat-value">${provider.totalReviews}</div>
-                                        <div class="stat-title">Reviews</div>
-                                    </div>
+                                <div style="display: flex; align-items: center; gap: 4px; color: var(--text-secondary); font-size: 0.9rem;">
+                                    <i class="material-icons" style="font-size: 16px;">schedule</i>
+                                    <span>${provider.availability || 'Contact for hours'}</span>
                                 </div>
                             </div>
-                            <div class="text-center mt-3">
-                                <button class="btn btn-outline white--text" onclick="viewProviderDetails('${provider.id}')">
-                                    <span class="icon">visibility</span> View Details
+                            <div style="flex: 2; padding-right: 16px;">
+                                <div style="display: flex; align-items: center; gap: 4px; color: var(--text-primary); font-weight: 500; margin-bottom: 4px;">
+                                    <i class="material-icons" style="font-size: 16px; color: var(--primary-color);">location_city</i>
+                                    <span>${provider.location || provider.city}</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 4px; color: var(--text-secondary); font-size: 0.9rem;">
+                                    <i class="material-icons" style="font-size: 16px;">room</i>
+                                    <span>${provider.city}, ${provider.country}</span>
+                                </div>
+                            </div>
+                            <div style="flex: 2; padding-right: 16px;">
+                                <div style="display: flex; align-items: center; gap: 4px; color: var(--text-primary); font-weight: 500;">
+                                    <i class="material-icons" style="font-size: 16px; color: var(--primary-color);">local_hospital</i>
+                                    <span>${provider.specialization || 'General'}</span>
+                                </div>
+                            </div>
+                            <div style="flex: 1; padding-right: 16px; text-align: center;">
+                                <div style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; padding: 8px 12px; border-radius: 8px; font-weight: 600; font-size: 1.1rem;">
+                                    ${provider.averageRating || 'N/A'}
+                                </div>
+                                <div style="color: var(--text-secondary); font-size: 0.8rem; margin-top: 4px;">
+                                    ${provider.averageRating ? '★★★★★'.slice(0, Math.round(provider.averageRating)) : ''}
+                                </div>
+                            </div>
+                            <div style="flex: 1; padding-right: 16px; text-align: center;">
+                                <div style="font-weight: 600; color: var(--text-primary); font-size: 1.1rem;">
+                                    ${provider.totalReviews || 0}
+                                </div>
+                                <div style="color: var(--text-secondary); font-size: 0.8rem;">
+                                    reviews
+                                </div>
+                            </div>
+                            <div style="flex: 1; text-align: center;">
+                                <button class="btn btn-primary" onclick="viewProviderDetails('${provider.id}')" 
+                                        style="padding: 8px 16px; font-size: 0.9rem; margin-bottom: 8px; width: 100%; max-width: 120px;">
+                                    <i class="material-icons" style="font-size: 16px;">visibility</i>
+                                    View Details
                                 </button>
-                                <button class="btn btn-outline white--text" onclick="leaveReview('${provider.id}', '${provider.name.replace(/'/g, "\\'")}')">
-                                    <span class="icon">rate_review</span> Leave Review
+                                <button class="btn btn-outline" onclick="leaveReview('${provider.id}', '${provider.name.replace(/'/g, "\\'")}'))" 
+                                        style="padding: 6px 12px; font-size: 0.8rem; width: 100%; max-width: 120px;">
+                                    <i class="material-icons" style="font-size: 14px;">rate_review</i>
+                                    Review
                                 </button>
                             </div>
                         </div>
-                    </div>
+                    `).join('')}
                 </div>
-            `).join('');
+            `;
         }
 
         function updatePagination(pagination) {
