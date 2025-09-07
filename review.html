@@ -25,15 +25,71 @@
         </nav>
     </header>
 
-    <main class="main-content">
-        <div class="container my-5">
-            <div class="card">
-                <div class="card-title">
-                    <h2><span class="icon">rate_review</span> Rate & Review Hospital</h2>
+    <main class="main-content" style="min-height: 100vh; padding: 40px 0; background: linear-gradient(135deg, rgba(248, 250, 252, 0.95) 0%, rgba(241, 245, 249, 0.9) 100%), url('assets/img/bg.jpg'); background-size: cover; background-position: center; background-attachment: fixed;">
+        <div class="container">
+            <!-- Loading State -->
+            <div id="loadingState" class="card" style="text-align: center; padding: 60px 40px; box-shadow: 0 12px 40px rgba(0,0,0,0.1); border-radius: 20px; background: var(--white); margin-bottom: 30px;">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 20px;">
+                    <div class="spinner" style="width: 40px; height: 40px; border: 4px solid var(--gray-300); border-top: 4px solid var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                    <h3 style="color: var(--text-primary); margin: 0;">Loading Assessment Modules...</h3>
                 </div>
-                <div class="card-text">
-                    <p>Review functionality coming soon...</p>
+                <p style="color: var(--text-secondary); margin: 0;">Please wait while we fetch the latest questionnaires</p>
+            </div>
+
+            <!-- Main Review Form -->
+            <div id="reviewForm" style="display: none;">
+                <div class="card" style="box-shadow: 0 12px 40px rgba(0,0,0,0.1); border-radius: 20px; background: var(--white); margin-bottom: 30px;">
+                    <div class="card-header" style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); color: white; text-align: center; padding: 40px 32px; border-radius: 20px 20px 0 0;">
+                        <h2 style="margin-bottom: 8px; font-size: 2rem; font-weight: 600;">
+                            <span class="icon" style="font-size: 2.5rem; margin-right: 12px; vertical-align: middle;">rate_review</span>
+                            Hospital Assessment & Feedback
+                        </h2>
+                        <p style="margin: 0; opacity: 0.9; font-size: 1.1rem;">Share your experience to help others find the best healthcare</p>
+                    </div>
+                    <div class="card-text" style="padding: 40px 32px;">
+                        <form id="feedbackForm">
+                            <!-- Hospital Selection -->
+                            <div class="form-group" style="margin-bottom: 32px;">
+                                <label class="form-label" style="color: var(--text-primary); font-weight: 600; margin-bottom: 12px; display: block; font-size: 1.1rem;">
+                                    <span class="icon" style="margin-right: 8px; color: var(--primary-color);">local_hospital</span>
+                                    Select Hospital
+                                </label>
+                                <select id="hospitalSelect" class="form-control" required style="padding: 16px; border: 2px solid var(--gray-300); border-radius: 12px; font-size: 16px; width: 100%; box-sizing: border-box; background: var(--white);">
+                                    <option value="">Choose a hospital...</option>
+                                </select>
+                            </div>
+
+                            <!-- Dynamic Assessment Modules -->
+                            <div id="assessmentModules"></div>
+
+                            <!-- Submit Button -->
+                            <div style="text-align: center; margin-top: 40px;">
+                                <button type="submit" class="btn btn-primary" style="padding: 18px 40px; border-radius: 12px; font-size: 18px; font-weight: 600; background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); border: none; box-shadow: 0 4px 20px rgba(67, 146, 241, 0.25); transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 12px;">
+                                    <span class="icon" style="font-size: 24px;">send</span>
+                                    Submit Feedback
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
+            </div>
+
+            <!-- Success Message -->
+            <div id="successMessage" style="display: none; margin-top: 30px; padding: 30px; background: linear-gradient(135deg, #4caf50, #66bb6a); color: white; border-radius: 20px; text-align: center; box-shadow: 0 8px 32px rgba(76, 175, 80, 0.3);">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 16px;">
+                    <span class="icon" style="font-size: 48px;">check_circle</span>
+                    <h3 style="margin: 0; font-size: 1.5rem;">Thank You!</h3>
+                </div>
+                <p style="margin: 0; font-size: 1.1rem; opacity: 0.95;">Your feedback has been submitted successfully and will help others make informed healthcare decisions.</p>
+            </div>
+
+            <!-- Error Message -->
+            <div id="errorMessage" style="display: none; margin-top: 30px; padding: 30px; background: linear-gradient(135deg, #f44336, #ef5350); color: white; border-radius: 20px; text-align: center; box-shadow: 0 8px 32px rgba(244, 67, 54, 0.3);">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 16px;">
+                    <span class="icon" style="font-size: 48px;">error</span>
+                    <h3 style="margin: 0; font-size: 1.5rem;">Submission Failed</h3>
+                </div>
+                <p id="errorText" style="margin: 0; font-size: 1.1rem; opacity: 0.95;">There was an error submitting your feedback. Please try again.</p>
             </div>
         </div>
     </main>
@@ -45,7 +101,440 @@
         </div>
     </footer>
 
+    <style>
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .rating-stars {
+            display: flex;
+            gap: 8px;
+            margin: 12px 0;
+        }
+        
+        .star {
+            font-size: 28px;
+            color: #ddd;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .star:hover,
+        .star.active {
+            color: #ffc107;
+            transform: scale(1.1);
+        }
+        
+        .question-group {
+            margin-bottom: 32px;
+            padding: 24px;
+            border: 2px solid var(--gray-200);
+            border-radius: 16px;
+            background: #fafbfc;
+            transition: all 0.3s ease;
+        }
+        
+        .question-group:hover {
+            border-color: var(--primary-color);
+            background: #ffffff;
+            box-shadow: 0 4px 16px rgba(67, 146, 241, 0.1);
+        }
+        
+        .category-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+    </style>
+
     <script>
+        const API_BASE_URL = 'https://healthier-a4a89cbfae6a.herokuapp.com/api';
+        let assessmentData = null;
+        let hospitals = [];
+
+        // Check authentication on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const authToken = localStorage.getItem('authToken');
+            if (!authToken) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            loadAssessmentModules();
+            loadHospitals();
+        });
+
+        // Load assessment modules from API
+        async function loadAssessmentModules() {
+            try {
+                const authToken = localStorage.getItem('authToken');
+                const response = await fetch(`${API_BASE_URL}/customer/assessment/modules`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    assessmentData = await response.json();
+                    renderAssessmentForm();
+                    document.getElementById('loadingState').style.display = 'none';
+                    document.getElementById('reviewForm').style.display = 'block';
+                } else {
+                    throw new Error('Failed to load assessment modules');
+                }
+            } catch (error) {
+                console.error('Error loading assessment modules:', error);
+                showError('Failed to load assessment modules. Please refresh the page.');
+                document.getElementById('loadingState').style.display = 'none';
+            }
+        }
+
+        // Load hospitals list (mock data for now)
+        function loadHospitals() {
+            hospitals = [
+                { id: 1, name: 'General Hospital' },
+                { id: 2, name: 'City Medical Center' },
+                { id: 3, name: 'University Hospital' },
+                { id: 4, name: 'Regional Health Center' },
+                { id: 5, name: 'Community Hospital' }
+            ];
+            
+            const hospitalSelect = document.getElementById('hospitalSelect');
+            hospitals.forEach(hospital => {
+                const option = document.createElement('option');
+                option.value = hospital.id;
+                option.textContent = hospital.name;
+                hospitalSelect.appendChild(option);
+            });
+        }
+
+        // Render assessment form based on API data
+        function renderAssessmentForm() {
+            const container = document.getElementById('assessmentModules');
+            
+            if (!assessmentData || !assessmentData.modules) {
+                // Fallback: Create a basic customer feedback form
+                container.innerHTML = createBasicFeedbackForm();
+                return;
+            }
+
+            let formHTML = '';
+            
+            assessmentData.modules.forEach((module, moduleIndex) => {
+                if (module.categories) {
+                    module.categories.forEach((category, categoryIndex) => {
+                        formHTML += `
+                            <div class="category-header">
+                                <h3 style="margin: 0; font-size: 1.3rem;">
+                                    <span class="icon" style="margin-right: 8px;">${getCategoryIcon(category.name)}</span>
+                                    ${category.name}
+                                </h3>
+                                ${category.description ? `<p style="margin: 8px 0 0 0; opacity: 0.9;">${category.description}</p>` : ''}
+                            </div>
+                        `;
+                        
+                        if (category.questions) {
+                            category.questions.forEach((question, questionIndex) => {
+                                const questionId = `q_${moduleIndex}_${categoryIndex}_${questionIndex}`;
+                                formHTML += createQuestionHTML(question, questionId);
+                            });
+                        }
+                    });
+                }
+            });
+            
+            container.innerHTML = formHTML;
+            initializeRatingStars();
+        }
+
+        // Create basic feedback form as fallback
+        function createBasicFeedbackForm() {
+            return `
+                <div class="category-header">
+                    <h3 style="margin: 0; font-size: 1.3rem;">
+                        <span class="icon" style="margin-right: 8px;">feedback</span>
+                        Customer Feedback
+                    </h3>
+                    <p style="margin: 8px 0 0 0; opacity: 0.9;">Please rate your overall experience</p>
+                </div>
+                
+                <div class="question-group">
+                    <label class="form-label" style="color: var(--text-primary); font-weight: 600; margin-bottom: 12px; display: block;">
+                        Overall Rating
+                    </label>
+                    <div class="rating-stars" data-question="overall_rating">
+                        <span class="star" data-value="1">★</span>
+                        <span class="star" data-value="2">★</span>
+                        <span class="star" data-value="3">★</span>
+                        <span class="star" data-value="4">★</span>
+                        <span class="star" data-value="5">★</span>
+                    </div>
+                    <input type="hidden" name="overall_rating" id="overall_rating">
+                </div>
+                
+                <div class="question-group">
+                    <label class="form-label" for="service_quality" style="color: var(--text-primary); font-weight: 600; margin-bottom: 12px; display: block;">
+                        Service Quality Rating
+                    </label>
+                    <div class="rating-stars" data-question="service_quality">
+                        <span class="star" data-value="1">★</span>
+                        <span class="star" data-value="2">★</span>
+                        <span class="star" data-value="3">★</span>
+                        <span class="star" data-value="4">★</span>
+                        <span class="star" data-value="5">★</span>
+                    </div>
+                    <input type="hidden" name="service_quality" id="service_quality">
+                </div>
+                
+                <div class="question-group">
+                    <label class="form-label" for="cleanliness" style="color: var(--text-primary); font-weight: 600; margin-bottom: 12px; display: block;">
+                        Cleanliness Rating
+                    </label>
+                    <div class="rating-stars" data-question="cleanliness">
+                        <span class="star" data-value="1">★</span>
+                        <span class="star" data-value="2">★</span>
+                        <span class="star" data-value="3">★</span>
+                        <span class="star" data-value="4">★</span>
+                        <span class="star" data-value="5">★</span>
+                    </div>
+                    <input type="hidden" name="cleanliness" id="cleanliness">
+                </div>
+                
+                <div class="question-group">
+                    <label class="form-label" for="staff_friendliness" style="color: var(--text-primary); font-weight: 600; margin-bottom: 12px; display: block;">
+                        Staff Friendliness
+                    </label>
+                    <div class="rating-stars" data-question="staff_friendliness">
+                        <span class="star" data-value="1">★</span>
+                        <span class="star" data-value="2">★</span>
+                        <span class="star" data-value="3">★</span>
+                        <span class="star" data-value="4">★</span>
+                        <span class="star" data-value="5">★</span>
+                    </div>
+                    <input type="hidden" name="staff_friendliness" id="staff_friendliness">
+                </div>
+                
+                <div class="question-group">
+                    <label class="form-label" for="comments" style="color: var(--text-primary); font-weight: 600; margin-bottom: 12px; display: block;">
+                        Additional Comments
+                    </label>
+                    <textarea id="comments" name="comments" class="form-control" rows="4" 
+                              placeholder="Please share any additional feedback about your experience..."
+                              style="padding: 16px; border: 2px solid var(--gray-300); border-radius: 12px; font-size: 16px; width: 100%; box-sizing: border-box; resize: vertical; font-family: inherit;"></textarea>
+                </div>
+            `;
+        }
+
+        // Create HTML for individual questions
+        function createQuestionHTML(question, questionId) {
+            const questionType = question.type || 'rating';
+            
+            let inputHTML = '';
+            if (questionType === 'rating') {
+                inputHTML = `
+                    <div class="rating-stars" data-question="${questionId}">
+                        <span class="star" data-value="1">★</span>
+                        <span class="star" data-value="2">★</span>
+                        <span class="star" data-value="3">★</span>
+                        <span class="star" data-value="4">★</span>
+                        <span class="star" data-value="5">★</span>
+                    </div>
+                    <input type="hidden" name="${questionId}" id="${questionId}">
+                `;
+            } else if (questionType === 'text') {
+                inputHTML = `
+                    <textarea id="${questionId}" name="${questionId}" class="form-control" rows="3" 
+                              placeholder="Please provide your feedback..."
+                              style="padding: 16px; border: 2px solid var(--gray-300); border-radius: 12px; font-size: 16px; width: 100%; box-sizing: border-box; resize: vertical; font-family: inherit;"></textarea>
+                `;
+            } else if (questionType === 'select' && question.options) {
+                inputHTML = `
+                    <select id="${questionId}" name="${questionId}" class="form-control" 
+                            style="padding: 16px; border: 2px solid var(--gray-300); border-radius: 12px; font-size: 16px; width: 100%; box-sizing: border-box;">
+                        <option value="">Please select...</option>
+                        ${question.options.map(option => `<option value="${option.value || option}">${option.label || option}</option>`).join('')}
+                    </select>
+                `;
+            }
+            
+            return `
+                <div class="question-group">
+                    <label class="form-label" for="${questionId}" style="color: var(--text-primary); font-weight: 600; margin-bottom: 12px; display: block;">
+                        ${question.text || question.question}
+                    </label>
+                    ${inputHTML}
+                </div>
+            `;
+        }
+
+        // Get appropriate icon for category
+        function getCategoryIcon(categoryName) {
+            const name = categoryName.toLowerCase();
+            if (name.includes('service')) return 'room_service';
+            if (name.includes('clean')) return 'cleaning_services';
+            if (name.includes('staff')) return 'people';
+            if (name.includes('facility')) return 'business';
+            if (name.includes('wait')) return 'schedule';
+            return 'feedback';
+        }
+
+        // Initialize rating star functionality
+        function initializeRatingStars() {
+            document.querySelectorAll('.rating-stars').forEach(ratingGroup => {
+                const stars = ratingGroup.querySelectorAll('.star');
+                const questionId = ratingGroup.dataset.question;
+                const hiddenInput = document.getElementById(questionId);
+                
+                stars.forEach((star, index) => {
+                    star.addEventListener('click', () => {
+                        const rating = index + 1;
+                        hiddenInput.value = rating;
+                        
+                        // Update visual state
+                        stars.forEach((s, i) => {
+                            if (i < rating) {
+                                s.classList.add('active');
+                            } else {
+                                s.classList.remove('active');
+                            }
+                        });
+                    });
+                    
+                    star.addEventListener('mouseenter', () => {
+                        stars.forEach((s, i) => {
+                            if (i <= index) {
+                                s.style.color = '#ffc107';
+                            } else {
+                                s.style.color = '#ddd';
+                            }
+                        });
+                    });
+                });
+                
+                ratingGroup.addEventListener('mouseleave', () => {
+                    const currentRating = parseInt(hiddenInput.value) || 0;
+                    stars.forEach((s, i) => {
+                        if (i < currentRating) {
+                            s.style.color = '#ffc107';
+                        } else {
+                            s.style.color = '#ddd';
+                        }
+                    });
+                });
+            });
+        }
+
+        // Handle form submission
+        document.getElementById('feedbackForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const feedbackData = {
+                hospital_id: formData.get('hospitalSelect') || document.getElementById('hospitalSelect').value,
+                ratings: {},
+                comments: {}
+            };
+            
+            // Collect all form data
+            for (let [key, value] of formData.entries()) {
+                if (key !== 'hospitalSelect' && value) {
+                    if (key.includes('comments') || key.includes('text')) {
+                        feedbackData.comments[key] = value;
+                    } else {
+                        feedbackData.ratings[key] = parseInt(value) || value;
+                    }
+                }
+            }
+            
+            // Add any additional textarea values
+            document.querySelectorAll('textarea').forEach(textarea => {
+                if (textarea.value) {
+                    feedbackData.comments[textarea.name] = textarea.value;
+                }
+            });
+            
+            if (!feedbackData.hospital_id) {
+                showError('Please select a hospital.');
+                return;
+            }
+            
+            await submitFeedback(feedbackData);
+        });
+
+        // Submit feedback to API
+        async function submitFeedback(feedbackData) {
+            const submitButton = document.querySelector('button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+            
+            try {
+                // Show loading state
+                submitButton.innerHTML = '<span class="icon" style="margin-right: 8px;">hourglass_empty</span>Submitting...';
+                submitButton.disabled = true;
+                
+                const authToken = localStorage.getItem('authToken');
+                const response = await fetch(`${API_BASE_URL}/customer/feedback`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(feedbackData)
+                });
+                
+                if (response.ok) {
+                    showSuccess();
+                    document.getElementById('feedbackForm').reset();
+                    // Reset star ratings
+                    document.querySelectorAll('.star').forEach(star => {
+                        star.classList.remove('active');
+                        star.style.color = '#ddd';
+                    });
+                } else {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Failed to submit feedback');
+                }
+            } catch (error) {
+                console.error('Error submitting feedback:', error);
+                showError(error.message || 'Failed to submit feedback. Please try again.');
+            } finally {
+                // Reset button
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+            }
+        }
+
+        // Show success message
+        function showSuccess() {
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'block';
+            successMessage.scrollIntoView({ behavior: 'smooth' });
+            
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 5000);
+        }
+
+        // Show error message
+        function showError(message) {
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+            
+            successMessage.style.display = 'none';
+            document.getElementById('errorText').textContent = message;
+            errorMessage.style.display = 'block';
+            errorMessage.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Mobile navigation
         function toggleMobileNav() {
             const navLinks = document.getElementById('navLinks');
             navLinks.classList.toggle('active');

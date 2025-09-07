@@ -427,13 +427,13 @@
         </div>
     </footer>
     <script>
-        function toggleMobileNav() {
-            const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('active');
-        }
+        const API_BASE_URL = 'https://healthier-a4a89cbfae6a.herokuapp.com/api';
         
-        // Close mobile nav when clicking on a link
+        // Load statistics on page load
         document.addEventListener('DOMContentLoaded', function() {
+            loadStatistics();
+            loadProviderStats();
+            
             const navLinks = document.querySelectorAll('.nav-links a');
             navLinks.forEach(link => {
                 link.addEventListener('click', () => {
@@ -441,6 +441,135 @@
                 });
             });
         });
+
+        // Load assessment statistics from API
+        async function loadStatistics() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/public/assessments/statistics`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    updateStatistics(data);
+                } else {
+                    console.log('Failed to load assessment statistics, using fallback data');
+                }
+            } catch (error) {
+                console.error('Error loading assessment statistics:', error);
+                // Keep existing static data as fallback
+            }
+        }
+
+        // Load provider statistics from API
+        async function loadProviderStats() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/customer/providers/rated`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    updateProviderStats(data);
+                } else {
+                    console.log('Failed to load provider statistics, using fallback data');
+                }
+            } catch (error) {
+                console.error('Error loading provider statistics:', error);
+                // Keep existing static data as fallback
+            }
+        }
+
+        // Update statistics in hero section
+        function updateStatistics(data) {
+            // Update hero section stats (lines 62-69)
+            const heroStats = document.querySelector('.stats-overlay');
+            if (heroStats && data) {
+                const statItems = heroStats.querySelectorAll('.stat-item');
+                
+                if (data.total_providers && statItems[0]) {
+                    const providerNumber = statItems[0].querySelector('.stat-number');
+                    if (providerNumber) {
+                        providerNumber.textContent = formatNumber(data.total_providers) + '+';
+                    }
+                }
+                
+                if (data.total_reviews && statItems[1]) {
+                    const reviewNumber = statItems[1].querySelector('.stat-number');
+                    if (reviewNumber) {
+                        reviewNumber.textContent = formatNumber(data.total_reviews) + '+';
+                    }
+                }
+            }
+        }
+
+        // Update provider statistics in professionals section
+        function updateProviderStats(data) {
+            // Update professionals section stats (lines 135-147)
+            const profStats = document.querySelector('.professionals-stats');
+            if (profStats && data) {
+                const statBoxes = profStats.querySelectorAll('.stat-box');
+                
+                if (data.hospitals && statBoxes[0]) {
+                    const hospitalNumber = statBoxes[0].querySelector('.stat-number');
+                    if (hospitalNumber) {
+                        hospitalNumber.textContent = formatNumber(data.hospitals) + '+';
+                    }
+                }
+                
+                if (data.doctors && statBoxes[1]) {
+                    const doctorNumber = statBoxes[1].querySelector('.stat-number');
+                    if (doctorNumber) {
+                        doctorNumber.textContent = formatNumber(data.doctors) + '+';
+                    }
+                }
+                
+                if (data.patients && statBoxes[2]) {
+                    const patientNumber = statBoxes[2].querySelector('.stat-number');
+                    if (patientNumber) {
+                        patientNumber.textContent = formatNumber(data.patients) + '+';
+                    }
+                }
+            }
+        }
+
+        // Format numbers with appropriate suffixes
+        function formatNumber(num) {
+            if (num >= 1000000) {
+                return (num / 1000000).toFixed(1) + 'M';
+            } else if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'K';
+            }
+            return num.toString();
+        }
+
+        // Add loading animation to stat numbers
+        function animateNumber(element, targetValue) {
+            const startValue = 0;
+            const duration = 2000; // 2 seconds
+            const increment = targetValue / (duration / 16); // 60fps
+            let currentValue = startValue;
+            
+            const timer = setInterval(() => {
+                currentValue += increment;
+                if (currentValue >= targetValue) {
+                    currentValue = targetValue;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(currentValue).toLocaleString() + '+';
+            }, 16);
+        }
+
+        function toggleMobileNav() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
     </script>
 </body>
 </html>

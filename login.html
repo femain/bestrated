@@ -222,7 +222,7 @@
                     
                     // Redirect after success
                     setTimeout(() => {
-                        window.location.href = 'search.html';
+                        window.location.href = 'review.html';
                     }, 1500);
                 } else {
                     // Error handling
@@ -239,7 +239,20 @@
                 }
             } catch (error) {
                 console.error('Login error:', error);
-                document.getElementById('errorText').textContent = 'Network error. Please try again.';
+                console.error('Error details:', {
+                    message: error.message,
+                    name: error.name,
+                    stack: error.stack
+                });
+                
+                let errorMsg = 'Network error. Please try again.';
+                if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                    errorMsg = 'Unable to connect to server. The API server needs to be configured to allow requests from this domain (bestratedhospitals.org). Please contact the API administrator to add CORS headers.';
+                } else if (error.message.includes('CORS')) {
+                    errorMsg = 'CORS error: API server must add "Access-Control-Allow-Origin" header for bestratedhospitals.org domain.';
+                }
+                
+                document.getElementById('errorText').textContent = errorMsg;
                 errorMessage.style.display = 'block';
                 errorMessage.style.opacity = '0';
                 errorMessage.style.transform = 'translateY(10px)';
