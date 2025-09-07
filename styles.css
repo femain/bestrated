@@ -5,6 +5,7 @@
   --primary-color: #2563eb;
   --secondary-color: #1e40af;
   --accent-color: #3b82f6;
+  --alternate-color: #53d8fb;
   --light-blue: #dbeafe;
   --very-light-blue: #eff6ff;
   --text-primary: #1f2937;
@@ -17,6 +18,9 @@
   --gray-50: #f9fafb;
   --gray-100: #f3f4f6;
   --gray-200: #e5e7eb;
+  --blue-darken-2: #1565c0;
+  --blue-darken-4: #0d47a1;
+  --yellow: #ffc107;
 }
 
 * {
