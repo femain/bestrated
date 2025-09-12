@@ -203,7 +203,9 @@
                 
                 const data = await response.json();
                 
-                if (response.ok && data.status === 'success') {
+                console.log('Login response:', { status: response.status, data: data });
+                
+                if (response.ok) {
                     // Success animation
                     successMessage.style.display = 'block';
                     successMessage.style.opacity = '0';
