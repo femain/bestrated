@@ -185,13 +185,29 @@
                     renderAssessmentForm();
                     document.getElementById('loadingState').style.display = 'none';
                     document.getElementById('reviewForm').style.display = 'block';
+                } else if (response.status === 401) {
+                    // Authentication failed - redirect to login
+                    console.error('Authentication failed, redirecting to login');
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('userInfo');
+                    window.location.href = 'login.html';
+                    return;
                 } else {
-                    throw new Error('Failed to load assessment modules');
+                    throw new Error(`Failed to load assessment modules: ${response.status}`);
                 }
             } catch (error) {
                 console.error('Error loading assessment modules:', error);
-                showError('Failed to load assessment modules. Please refresh the page.');
+                
+                // Check if it's a network/CORS error
+                if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                    console.error('Network/CORS error detected');
+                    showError('Unable to connect to the server. Please check your connection or try again later.');
+                } else {
+                    showError('Failed to load assessment modules. Please refresh the page.');
+                }
+                
                 document.getElementById('loadingState').style.display = 'none';
+                // Don't redirect to login for network errors - stay on the page
             }
         }
 

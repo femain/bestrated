@@ -218,6 +218,13 @@
                     document.getElementById('pendingAssessments').textContent = stats.pendingReviews || 0;
                     document.getElementById('completedAssessments').textContent = stats.completedToday || 0;
                     document.getElementById('providersAssessed').textContent = stats.providersAssessed || 0;
+                } else if (response.status === 401) {
+                    // Authentication failed - redirect to login
+                    console.error('Authentication failed, redirecting to login');
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('userInfo');
+                    window.location.href = 'login.html';
+                    return;
                 } else {
                     console.error('Failed to load dashboard stats:', response.status);
                     // Set fallback values
@@ -228,6 +235,12 @@
                 }
             } catch (error) {
                 console.error('Error loading dashboard stats:', error);
+                
+                // Check if it's a network/CORS error
+                if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                    console.error('Network/CORS error detected for dashboard stats');
+                }
+                
                 // Set fallback values
                 document.getElementById('totalAssessments').textContent = '156';
                 document.getElementById('pendingAssessments').textContent = '12';
@@ -250,6 +263,13 @@
                     const result = await response.json();
                     const assessments = result.data;
                     displayPendingAssessments(assessments);
+                } else if (response.status === 401) {
+                    // Authentication failed - redirect to login
+                    console.error('Authentication failed, redirecting to login');
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('userInfo');
+                    window.location.href = 'login.html';
+                    return;
                 } else {
                     console.error('Failed to load pending assessments:', response.status);
                     // Show fallback data
@@ -273,8 +293,16 @@
                 }
             } catch (error) {
                 console.error('Error loading pending assessments:', error);
-                document.getElementById('pendingAssessmentsList').innerHTML = 
-                    '<div style="padding: 40px; text-align: center; color: var(--error-color);"><p>Error loading assessments. Please check your connection.</p></div>';
+                
+                // Check if it's a network/CORS error
+                if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                    console.error('Network/CORS error detected for pending assessments');
+                    document.getElementById('pendingAssessmentsList').innerHTML = 
+                        '<div style="padding: 40px; text-align: center; color: var(--error-color);"><p>Unable to connect to the server. Please check your connection or try again later.</p></div>';
+                } else {
+                    document.getElementById('pendingAssessmentsList').innerHTML = 
+                        '<div style="padding: 40px; text-align: center; color: var(--error-color);"><p>Error loading assessments. Please check your connection.</p></div>';
+                }
             }
         }
 
@@ -336,6 +364,13 @@
                     const scores = result.data;
                     console.log('Provider scores retrieved from API:', scores);
                     displayProviderScores(scores);
+                } else if (response.status === 401) {
+                    // Authentication failed - redirect to login
+                    console.error('Authentication failed, redirecting to login');
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('userInfo');
+                    window.location.href = 'login.html';
+                    return;
                 } else {
                     console.error('Failed to load provider scores:', response.status);
                     // Show fallback data
@@ -363,8 +398,16 @@
                 }
             } catch (error) {
                 console.error('Error loading provider scores:', error);
-                document.getElementById('providerScoresList').innerHTML = 
-                    '<div style="padding: 40px; text-align: center; color: var(--error-color);"><p>Error loading provider scores. Please check your connection.</p></div>';
+                
+                // Check if it's a network/CORS error
+                if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                    console.error('Network/CORS error detected for provider scores');
+                    document.getElementById('providerScoresList').innerHTML = 
+                        '<div style="padding: 40px; text-align: center; color: var(--error-color);"><p>Unable to connect to the server. Please check your connection or try again later.</p></div>';
+                } else {
+                    document.getElementById('providerScoresList').innerHTML = 
+                        '<div style="padding: 40px; text-align: center; color: var(--error-color);"><p>Error loading provider scores. Please check your connection.</p></div>';
+                }
             }
         }
 
