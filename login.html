@@ -222,9 +222,25 @@
                         localStorage.setItem('userInfo', JSON.stringify(data.user));
                     }
                     
+                    // Determine redirect based on user role
+                    let redirectUrl = 'review.html'; // Default for patients/customers
+                    
+                    if (data.user && data.user.role) {
+                        const userRole = data.user.role.toLowerCase();
+                        console.log('User role detected:', userRole);
+                        
+                        if (userRole === 'assessor' || userRole === 'compliance_officer') {
+                            redirectUrl = 'assessor-dashboard.html';
+                        } else if (userRole === 'customer' || userRole === 'patient') {
+                            redirectUrl = 'review.html';
+                        }
+                    }
+                    
+                    console.log('Redirecting to:', redirectUrl);
+                    
                     // Redirect after success
                     setTimeout(() => {
-                        window.location.href = 'review.html';
+                        window.location.href = redirectUrl;
                     }, 1500);
                 } else {
                     // Error handling
